@@ -6,7 +6,7 @@
  * @author Shashvat Kedia
  * @author David González Verdugo
  * @author John Kalimeris
- * Copyright (C) 2020 ownCloud GmbH.
+ * Copyright (C) 2021 ownCloud GmbH.
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -51,7 +51,7 @@ import java.util.Vector;
 public class ReceiveExternalFilesAdapter extends BaseAdapter implements ListAdapter {
 
     private Vector<OCFile> mImmutableFilesList;
-    private Vector<OCFile> mFiles;
+    private Vector<OCFile> mFiles = new Vector<>();
     private Context mContext;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
@@ -59,13 +59,8 @@ public class ReceiveExternalFilesAdapter extends BaseAdapter implements ListAdap
     private OnSearchQueryUpdateListener mOnSearchQueryUpdateListener;
 
     public ReceiveExternalFilesAdapter(Context context,
-                                       Vector<OCFile> files,
-                                       FileDataStorageManager storageManager,
-                                       Account account
-    ) {
-        mFiles = files;
+                                       FileDataStorageManager storageManager) {
         mImmutableFilesList = (Vector<OCFile>) mFiles.clone();
-        mAccount = account;
         mStorageManager = storageManager;
         mContext = context;
         mInflater = (LayoutInflater) mContext
@@ -73,6 +68,10 @@ public class ReceiveExternalFilesAdapter extends BaseAdapter implements ListAdap
         if (mContext instanceof OnSearchQueryUpdateListener) {
             mOnSearchQueryUpdateListener = (OnSearchQueryUpdateListener) mContext;
         }
+    }
+
+    public void setAccount(Account account) {
+        mAccount = account;
     }
 
     @Override
@@ -87,6 +86,10 @@ public class ReceiveExternalFilesAdapter extends BaseAdapter implements ListAdap
         } else {
             return mFiles.get(position);
         }
+    }
+
+    public void setNewItemVector(Vector<OCFile> newItemVector) {
+        mFiles = newItemVector;
     }
 
     @Override
