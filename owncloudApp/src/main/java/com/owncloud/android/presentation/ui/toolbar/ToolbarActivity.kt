@@ -85,6 +85,8 @@ abstract class ToolbarActivity : BaseActivity() {
                     searchView.isVisible = true
                     searchView.isIconified = false
                 }
+            } else {
+                toolbarTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
             }
         }
 
